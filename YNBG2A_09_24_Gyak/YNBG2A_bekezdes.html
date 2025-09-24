@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Szövegformázás: bekezdés, igazítások</title>
+    <style>
+      body {
+        font-family: Times New Roman, Times, serif;
+      }
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+      }
+      .jobbra {
+        text-align: center;
+      }
+      .kozep {
+        text-align: center;
+      }
+      .sorkizart {
+        text-align: justify;
+      }
+      p {
+        margin: 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Szövegformázás: bekezdés, igazítások</h1>
+
+    <p>Ez egy sor, ami a bekezdés előtt van.</p>
+
+    <p class="jobbra">
+      Ez egy szöveg, amit majd különféle módszerekkel fogunk elhelyezni és
+      igazítani.<br />
+      Ezt a mondatot az előző után írom azzal a céllal,<br />
+      hogy ki tudjuk próbálni, hogy mi is az a "sorkizárt" igazítás.
+    </p>
+
+    <div style="width: 400px; text-align: justify">
+      <p>Ez egy sor, ami a bekezdés után van.</p>
+
+      <p class="sorkizart">
+        Ez egy szöveg, amit majd különféle módszerekkel fogunk elhelyezni és
+        igazítani. Ezt a mondatot az előző után írom azzal a céllal, hogy ki
+        tudjuk próbálni, hogy mi is az a "sorkizárt" igazítás.
+      </p>
+
+      <p>Ez egy sor, ami a bekezdés után van.</p>
+    </div>
+  </body>
+</html>
