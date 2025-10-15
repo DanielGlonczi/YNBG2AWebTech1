@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+}
+
+.center {
+  text-align: center;
+  font-weight: bold;
+}
+
+.orarend {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 98%;
+  max-width: 1400px;
+  font-size: 1.1em;
+}
+
+.orarend th,
+.orarend td {
+  border: 2px solid #555;
+  min-width: 120px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px;
+}
+
+.orarend th {
+  background: #aaa;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.ido {
+  background: #aaa;
+  font-weight: bold;
+  width: 80px;
+}
+
+.sarga {
+  background: #ffff99;
+}
+
+.kek {
+  background: #b2f6ff;
+}
+
+.lila {
+  background: #e6aaff;
+}
+
+.zold {
+  background: #baffb2;
+}
+
+.piros {
+  background: #f7a6a6;
+}
+
+.narancs {
+  background: #ffb97a;
+}
+
+.szurke {
+  background: #e0e0e0;
+}

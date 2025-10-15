@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS - állapot alapján - hivatkozás</title>
+    <style>
+      body {
+        background: #66c87a;
+        font-family: Times New Roman, serif;
+        margin: 20px;
+      }
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .leiras {
+        color: #fff700;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+      }
+      a:link {
+        color: #0059ff;
+        font-size: 1.5em;
+        text-decoration: none;
+      }
+      a:visited {
+        color: #888;
+      }
+      a:hover {
+        color: orange;
+        text-decoration: underline;
+      }
+      a:active {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS - állapot alapján - hivatkozás</h1>
+    <div class="leiras">
+      Ha még nem látogattuk meg korábban a hivatkozott weboldalt, akkor az
+      alábbi hivatkozás zöld betűszínnel jelenik meg, egyébként pedig szürke
+      színnel. Ha a hivatkozás fölé visszük a kurzort, akkor a szín
+      narancssárgára vált, ha pedig a hivatkozásra kattintunk, akkor pirosra.
+    </div>
+    <a href="https://unithe.hu" target="_blank"
+      >Kattins ide unithe.hu weblapot!</a
+    >
+  </body>
+</html>

@@ -1,0 +1,44 @@
+.table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 40%;
+  font-family: 'Arial', Courier, monospace;
+  font-size: 1.1em;
+}
+
+.table th,
+.table td {
+  border: 2px solid #888;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.red {
+  background-color: #e53935;
+  color: #000000;
+  font-weight: bold;
+}
+
+.baige {
+  background-color: #ffff99;
+  font-weight: bold;
+}
+
+.magenta {
+  color: #000000;
+  font-weight: bold;
+}
+
+.scroll {
+  max-width: 250px;
+  max-height: 100px;
+  overflow: auto;
+  display: block;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.center {
+  text-align: center;
+}

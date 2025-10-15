@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS - text-decoration</title>
+    <style>
+      body {
+        background: #56a98b;
+        font-family: Times New Roman, serif;
+        margin: 20px;
+      }
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .link1 {
+        color: #3d2176;
+        font-size: 2em;
+        text-decoration: none;
+      }
+      .link1 em {
+        font-style: italic;
+      }
+      .link2 {
+        color: blue;
+        font-size: 2em;
+        text-decoration-line: underline;
+        text-decoration-style: dotted;
+        text-decoration-color: rgb(255, 255, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS - text-decoration</h1>
+    <div>
+      <span class="link1"
+        ><a href="https://unithe.hu/" style="text-decoration: none"
+          >Kattins ide a <em>unithe.hu</em> weblap megnyitásához!</a
+        ></span
+      >
+    </div>
+    <div>
+      <a href="https://unithe.hu/" class="link2"
+        >Egy piros pontozott vonallal aláhúzott szöveg</a
+      >
+    </div>
+  </body>
+</html>
