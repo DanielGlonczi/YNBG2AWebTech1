@@ -200,7 +200,92 @@
         </div>
       </div>
     </div>
+    <script>
+      const video = document.getElementById('video');
+      const playBtn = document.getElementById('playBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      const restartBtn = document.getElementById('restartBtn');
+      const muteBtn = document.getElementById('muteBtn');
+      const volLowBtn = document.getElementById('volLowBtn');
+      const volHighBtn = document.getElementById('volHighBtn');
+      const speedBtns = document.querySelectorAll('.speed-btn');
+      const position = document.getElementById('position');
 
+      function formatTime(s) {
+        if (!isFinite(s)) return '00:00';
+        const m = Math.floor(s / 60)
+          .toString()
+          .padStart(2, '0');
+        const sec = Math.floor(s % 60)
+          .toString()
+          .padStart(2, '0');
+        return `${m}:${sec}`;
+      }
+
+      function updatePlayIcon() {
+        playBtn.innerHTML = video.paused
+          ? '<span class="material-symbols-outlined">play_arrow</span>'
+          : '<span class="material-symbols-outlined">pause</span>';
+      }
+      playBtn.addEventListener('click', () => {
+        if (video.paused) video.play();
+        else video.pause();
+        updatePlayIcon();
+      });
+      video.addEventListener('play', updatePlayIcon);
+      video.addEventListener('pause', updatePlayIcon);
+
+      stopBtn.addEventListener('click', () => {
+        video.pause();
+        video.currentTime = 0;
+        updatePlayIcon();
+      });
+
+      restartBtn.addEventListener('click', () => {
+        video.currentTime = 0;
+        video.play();
+        updatePlayIcon();
+      });
+
+      muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteBtn.innerHTML = video.muted
+          ? '<span class="material-symbols-outlined">volume_off</span>'
+          : '<span class="material-symbols-outlined">volume_up</span>';
+      });
+
+      volLowBtn.addEventListener('click', () => {
+        video.muted = false;
+        video.volume = 0.2;
+      });
+      volHighBtn.addEventListener('click', () => {
+        video.muted = false;
+        video.volume = 1.0;
+      });
+
+      function setActiveSpeed(btn) {
+        speedBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      speedBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const rate = parseFloat(btn.dataset.rate) || 1;
+          video.playbackRate = rate;
+          setActiveSpeed(btn);
+        });
+        if (btn.dataset.rate === '1') setActiveSpeed(btn);
+      });
+
+      video.addEventListener('timeupdate', () => {
+        const cur = formatTime(video.currentTime);
+        const dur = formatTime(video.duration);
+        position.textContent = `${cur} / ${dur}`;
+      });
+      video.addEventListener('loadedmetadata', () => {
+        const dur = formatTime(video.duration);
+        position.textContent = `${formatTime(video.currentTime)} / ${dur}`;
+      });
+    </script>
     <footer>YNBG2A példa — Google Material Symbols ikonok a gombokhoz</footer>
   </body>
 </html>
