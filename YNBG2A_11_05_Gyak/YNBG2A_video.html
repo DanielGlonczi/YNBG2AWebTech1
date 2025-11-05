@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>YNBG2A - Video példa</title>
+    <style>
+      :root {
+        --accent: #ffffff;
+        --muted: #f4f4f4;
+        --text: #222;
+      }
+      body {
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        color: var(--text);
+        background: #fff;
+      }
+      header,
+      footer {
+        background: var(--accent);
+        color: rgb(87, 87, 87);
+        padding: 1rem 2rem;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 1.3rem;
+      }
+      main {
+        padding: 1.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .video-wrap {
+        background: var(--muted);
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+      .controls button {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #ccc;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .controls button.secondary {
+        background: #eee;
+      }
+      .group {
+        margin-bottom: 0.5rem;
+      }
+      .note {
+        font-size: 0.9rem;
+        color: #444;
+        margin-top: 0.5rem;
+      }
+      footer p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+      .info {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+      }
+      @media (max-width: 640px) {
+        video {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>HTML5 Video példa - YNBG2A_video</h1>
+    </header>
+
+    <main>
+      <article class="video-wrap">
+        <h2>Videó beágyazás HTML5-tel</h2>
+
+        <video id="myVideo" width="720" preload="metadata">
+          <source src="video.mp4" type="video/mp4" />
+          A böngésző nem támogatja a HTML5 videót. Töltsd le a fájlt:
+          <a href="video.mp4">video.mp4</a>
+        </video>
+
+        <div class="controls">
+          <div class="group">
+            <button id="playBtn">Lejátszás</button>
+            <button id="pauseBtn">Leállítás</button>
+            <button id="toggleBtn">Indítás / Leállítás</button>
+          </div>
+
+          <div class="group">
+            <button id="muteBtn">Néma</button>
+            <button id="lowVolBtn">Halk</button>
+            <button id="highVolBtn">Hangos</button>
+          </div>
+
+          <div class="group">
+            <button id="vslowBtn">Nagyon lassú</button>
+            <button id="slowBtn">Lassú</button>
+            <button id="normalBtn">Normál</button>
+            <button id="fastBtn">Gyorsabb</button>
+            <button id="vfastBtn">Nagyon gyors</button>
+          </div>
+
+          <div class="group">
+            <button id="endedBtn">Befejeződött-e?</button>
+            <button id="durationBtn">Video hossza (mp)</button>
+            <button id="currentBtn">Jelenlegi pozíció</button>
+          </div>
+        </div>
+
+        <div class="info" id="statusArea" aria-live="polite"></div>
+      </article>
+    </main>
+    <footer>
+      Forrás:
+      <a href="https://www.w3schools.com/html/mov_bbb.mp4"
+        >https://www.w3schools.com/html/mov_bbb.mp4</a
+      >
+    </footer>
+
+    <script>
+      (function () {
+        const video = document.getElementById('myVideo');
+        const status = document.getElementById('statusArea');
+
+        document.getElementById('playBtn').addEventListener('click', () => {
+          video.play();
+          updateStatus('Lejátszás megkezdve');
+        });
+        document.getElementById('pauseBtn').addEventListener('click', () => {
+          video.pause();
+          updateStatus('Leállítva');
+        });
+        document.getElementById('toggleBtn').addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+            updateStatus('Lejátszás');
+          } else {
+            video.pause();
+            updateStatus('Szünet');
+          }
+        });
+
+        document.getElementById('muteBtn').addEventListener('click', () => {
+          video.muted = !video.muted;
+          updateStatus(video.muted ? 'Néma mód' : 'Néma kikapcsolva');
+        });
+        document.getElementById('lowVolBtn').addEventListener('click', () => {
+          video.muted = false;
+          video.volume = 0.2;
+          updateStatus('Hangerő: halk (20%)');
+        });
+        document.getElementById('highVolBtn').addEventListener('click', () => {
+          video.muted = false;
+          video.volume = 1.0;
+          updateStatus('Hangerő: hangos (100%)');
+        });
+
+        document.getElementById('vslowBtn').addEventListener('click', () => {
+          video.playbackRate = 0.25;
+          updateStatus('Sebesség: nagyon lassú (0.25x)');
+        });
+        document.getElementById('slowBtn').addEventListener('click', () => {
+          video.playbackRate = 0.5;
+          updateStatus('Sebesség: lassú (0.5x)');
+        });
+        document.getElementById('normalBtn').addEventListener('click', () => {
+          video.playbackRate = 1;
+          updateStatus('Sebesség: normál (1x)');
+        });
+        document.getElementById('fastBtn').addEventListener('click', () => {
+          video.playbackRate = 1.5;
+          updateStatus('Sebesség: gyorsabb (1.5x)');
+        });
+        document.getElementById('vfastBtn').addEventListener('click', () => {
+          video.playbackRate = 2;
+          updateStatus('Sebesség: nagyon gyors (2x)');
+        });
+
+        document.getElementById('endedBtn').addEventListener('click', () => {
+          const ended = video.ended;
+          alert('Befejeződött-e a videó? ' + (ended ? 'Igen' : 'Nem'));
+        });
+
+        document.getElementById('durationBtn').addEventListener('click', () => {
+          if (isFinite(video.duration) && video.duration > 0) {
+            alert('A videó hossza: ' + video.duration.toFixed(2) + ' mp');
+          } else {
+            video.addEventListener('loadedmetadata', function onMeta() {
+              video.removeEventListener('loadedmetadata', onMeta);
+              alert('A videó hossza: ' + video.duration.toFixed(2) + ' mp');
+            });
+            updateStatus('Várakozás a metaadatokra...');
+          }
+        });
+
+        document.getElementById('currentBtn').addEventListener('click', () => {
+          if (!isNaN(video.currentTime)) {
+            alert('Jelenlegi pozíció: ' + video.currentTime.toFixed(2) + ' mp');
+          } else {
+            alert('A jelenlegi pozíció nem elérhető még.');
+          }
+        });
+
+        function updateStatus(text) {
+          status.textContent = text;
+        }
+
+        video.addEventListener('ended', () => {
+          updateStatus('A videó befejeződött.');
+        });
+
+        updateStatus();
+      })();
+    </script>
+  </body>
+</html>
