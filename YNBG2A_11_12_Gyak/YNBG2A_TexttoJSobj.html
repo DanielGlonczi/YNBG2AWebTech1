@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Text konvertálása JavaScript objektummá</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JSON Text konvertálása JavaScript objektummá</h1>
+      <p class="subtitle">JavaScript objektum ↔ JSON string konverzió</p>
+
+      <div class="content">
+        <div>
+          <div class="panel">
+            <h2>Szövetségi Adatok</h2>
+
+            <div class="data-item">
+              <span class="data-label">Név:</span>
+              <span class="data-value" id="display-nev">Jordan Szabó</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label">Irányítószám:</span>
+              <span class="data-value" id="display-zip">2100</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label">Város:</span>
+              <span class="data-value" id="display-varos">Gödöllő</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label">Egyetem:</span>
+              <span class="data-value" id="display-egyetem"
+                >ELTE - Eötvös Loránd Tudományegyetem</span
+              >
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>Mi történik?</strong>
+            Az alábbiakban egy JavaScript objektumot konvertálunk JSON stringgé
+            és vissza!
+          </div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <h2>JavaScript Kód</h2>
+
+            <span class="code-label">1. Objektum deklarálása:</span>
+            <div class="code-section">
+              <pre>
+let ynbg2a = {
+  "nev": "Jordan Szabó",
+  "iranyitoszam": "2100",
+  "varos": "Gödöllő",
+  "egyetem": "ELTE"
+};</pre
+              >
+            </div>
+
+            <span class="code-label">2. JSON stringgé konvertálás:</span>
+            <div class="code-section">
+              <pre>
+let jsonString = 
+  JSON.stringify(ynbg2a);</pre
+              >
+            </div>
+
+            <span class="code-label">3. Vissza JS objektummá:</span>
+            <div class="code-section">
+              <pre>
+let jsObj = 
+  JSON.parse(jsonString);</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button onclick="konvertalasJsonString()">
+          JSON.stringify() - Objektum → String
+        </button>
+        <button onclick="konvertalasJsonParse()">
+          JSON.parse() - String → Objektum
+        </button>
+        <button onclick="teljesKonverzio()">Teljes Konverzió</button>
+        <button onclick="adatokMutatasa()">Objektum Tulajdonságai</button>
+      </div>
+
+      <div class="output-section" id="output">
+        <h3>Eredmény:</h3>
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script>
+      const ynbg2a = {
+        nev: 'Jordan Szabó',
+        iranyitoszam: '2100',
+        varos: 'Gödöllő',
+        egyetem: 'ELTE - Eötvös Loránd Tudományegyetem',
+      };
+
+      function konvertalasJsonString() {
+        const output = document.getElementById('output');
+        const result = document.getElementById('result');
+
+        try {
+          const jsonString = JSON.stringify(ynbg2a);
+
+          let html = '<div class="info-box">';
+          html += '<strong>✓ JSON.stringify() Eredménye:</strong>';
+          html += '<p>Az objektum JSON stringgé alakítva:</p>';
+          html += '</div>';
+
+          html += '<span class="code-label">JSON String (tömör forma):</span>';
+          html += '<div class="code-section">';
+          html += '<pre>' + jsonString + '</pre>';
+          html += '</div>';
+
+          html +=
+            '<button class="copy-btn" onclick="masolasVagohlapra(\'' +
+            jsonString.replace(/'/g, "\\'") +
+            '\')">Másolás</button>';
+
+          html += '<span class="code-label">JSON String (formázott):</span>';
+          html += '<div class="code-section">';
+          const jsonFormatted = JSON.stringify(ynbg2a, null, 2);
+          html += '<pre>' + jsonFormatted + '</pre>';
+          html += '</div>';
+
+          html +=
+            '<p><strong>String hossza:</strong> ' +
+            jsonString.length +
+            ' karakter</p>';
+
+          result.innerHTML = html;
+          output.classList.add('show');
+        } catch (error) {
+          result.innerHTML =
+            '<div style="color: red;">Hiba: ' + error.message + '</div>';
+          output.classList.add('show');
+        }
+      }
+
+      function konvertalasJsonParse() {
+        const output = document.getElementById('output');
+        const result = document.getElementById('result');
+
+        try {
+          const jsonString = JSON.stringify(ynbg2a);
+
+          const parsedObj = JSON.parse(jsonString);
+
+          let html = '<div class="info-box">';
+          html += '<strong>✓ JSON.parse() Eredménye:</strong>';
+          html += '<p>A JSON string vissza lett alakítva JS objektummá:</p>';
+          html += '</div>';
+
+          html += '<span class="code-label">Eredeti JSON String:</span>';
+          html += '<div class="code-section">';
+          html += '<pre>' + jsonString + '</pre>';
+          html += '</div>';
+
+          html +=
+            '<span class="code-label">Konvertált JS Objektum (console):</span>';
+          html += '<div class="code-section">';
+          html += '<pre>' + JSON.stringify(parsedObj, null, 2) + '</pre>';
+          html += '</div>';
+
+          html +=
+            '<p><strong>Objektum típusa:</strong> ' + typeof parsedObj + '</p>';
+          html += '<p><strong>Objektum tulajdonságai:</strong></p>';
+          html += '<ul>';
+          for (let key in parsedObj) {
+            html +=
+              '<li><code>' +
+              key +
+              '</code>: <code>' +
+              parsedObj[key] +
+              '</code></li>';
+          }
+          html += '</ul>';
+
+          result.innerHTML = html;
+          output.classList.add('show');
+        } catch (error) {
+          result.innerHTML =
+            '<div style="color: red;">Hiba: ' + error.message + '</div>';
+          output.classList.add('show');
+        }
+      }
+
+      function teljesKonverzio() {
+        const output = document.getElementById('output');
+        const result = document.getElementById('result');
+
+        try {
+          let html = '<div class="info-box">';
+          html += '<strong> Teljes Konverzió Folyamata:</strong>';
+          html += '</div>';
+
+          html += '<h4>1. lépés - Eredeti JS Objektum:</h4>';
+          html += '<div class="code-section">';
+          html += '<pre>' + JSON.stringify(ynbg2a, null, 2) + '</pre>';
+          html += '</div>';
+
+          const jsonString = JSON.stringify(ynbg2a);
+          html += '<h4>2. lépés - JSON String (JSON.stringify()):</h4>';
+          html += '<div class="code-section">';
+          html += '<pre>' + jsonString + '</pre>';
+          html += '</div>';
+          html +=
+            '<p><em>Ez egy egyszerű szöveg, ami hálózaton küldhetõ vagy tárolható!</em></p>';
+
+          const parsedObj = JSON.parse(jsonString);
+          html += '<h4>3. lépés - Vissza JS Objektummá (JSON.parse()):</h4>';
+          html += '<div class="code-section">';
+          html += '<pre>' + JSON.stringify(parsedObj, null, 2) + '</pre>';
+          html += '</div>';
+
+          html +=
+            '<p><strong>Eredmény:</strong> Az objektum azonos az eredetivel! ✓</p>';
+
+          result.innerHTML = html;
+          output.classList.add('show');
+        } catch (error) {
+          result.innerHTML =
+            '<div style="color: red;">Hiba: ' + error.message + '</div>';
+          output.classList.add('show');
+        }
+      }
+
+      function adatokMutatasa() {
+        const output = document.getElementById('output');
+        const result = document.getElementById('result');
+
+        let html = '<div class="info-box">';
+        html += '<strong> Objektum Tulajdonságainak Elérése:</strong>';
+        html += '</div>';
+
+        html += '<table class="property-table">';
+        html +=
+          '<tr><th>Tulajdonság</th><th>Érték</th><th>Elérési mód</th></tr>';
+
+        for (let key in ynbg2a) {
+          html += '<tr>';
+          html += '<td><code>' + key + '</code></td>';
+          html += '<td><code>' + ynbg2a[key] + '</code></td>';
+          html +=
+            '<td><code>obj.' +
+            key +
+            '</code> vagy <code>obj["' +
+            key +
+            '"]</code></td>';
+          html += '</tr>';
+        }
+
+        html += '</table>';
+
+        html += '<h4>JavaScript konzol kódok:</h4>';
+        html += '<div class="code-section">';
+        html += '<pre>';
+        html += 'console.log(ynbg2a); // Teljes objektum\n';
+        html += 'console.log(ynbg2a.nev); // "' + ynbg2a.nev + '"\n';
+        html += 'console.log(ynbg2a["varos"]); // "' + ynbg2a.varos + '"';
+        html += '</pre>';
+        html += '</div>';
+
+        result.innerHTML = html;
+        output.classList.add('show');
+      }
+
+      function masolasVagohlapra(szoveg) {
+        navigator.clipboard
+          .writeText(szoveg)
+          .then(() => {
+            alert('✓ Sikeresen másolt a vágólapra!');
+          })
+          .catch(() => {
+            const textArea = document.createElement('textarea');
+            textArea.value = szoveg;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('✓ Sikeresen másolt a vágólapra!');
+          });
+      }
+
+      window.addEventListener('load', function () {
+        adatokMutatasa();
+      });
+    </script>
+  </body>
+</html>

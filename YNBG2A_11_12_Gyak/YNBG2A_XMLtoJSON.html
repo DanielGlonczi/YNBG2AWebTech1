@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XML és JSON Konverzió - Könyvek</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>XML és JSON Konverzió</h1>
+      <p class="subtitle">Informatika témájú könyvek adatainak konvertálása</p>
+
+      <div class="tabs">
+        <button class="tab-button active" onclick="switchTab('tab1')">
+          XML Fájl
+        </button>
+        <button class="tab-button" onclick="switchTab('tab2')">
+          JSON Fájl
+        </button>
+        <button class="tab-button" onclick="switchTab('tab3')">
+          Konverzió
+        </button>
+        <button class="tab-button" onclick="switchTab('tab4')">
+          Adatok Megjelenítése
+        </button>
+      </div>
+
+      <div id="tab1" class="tab-content active">
+        <div class="section">
+          <h2>XML Dokumentum</h2>
+          <p>Az alábbi XML fájl tartalmazza a könyvek adatait:</p>
+          <div class="code-block">
+            <pre id="xmlContent"></pre>
+          </div>
+          <div class="button-group">
+            <button onclick="letoltXML()" class="secondary">
+              XML Letöltés
+            </button>
+            <button
+              onclick="masolasVagothaftarVagot('xmlContent')"
+              class="copy-btn"
+            >
+              Másolás
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab2" class="tab-content">
+        <div class="section">
+          <h2>JSON Dokumentum</h2>
+          <p>Az XML-ből konvertált JSON fájl:</p>
+          <div class="code-block">
+            <pre id="jsonContent"></pre>
+          </div>
+          <div class="button-group">
+            <button onclick="letoltJSON()" class="secondary">
+              JSON Letöltés
+            </button>
+            <button
+              onclick="masolasVagothaftarVagot('jsonContent')"
+              class="copy-btn"
+            >
+              Másolás
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab3" class="tab-content">
+        <div class="section">
+          <h2>XML → JSON Konverzió</h2>
+          <p>Az alábbi lépések történnek a konverzió során:</p>
+          <div class="info-box">
+            <p>
+              <strong>1. lépés:</strong> Az XML fájl betöltése és feldolgozása
+            </p>
+            <p>
+              <strong>2. lépés:</strong> Az XML elemek JSON objektummá alakítása
+            </p>
+            <p><strong>3. lépés:</strong> A JSON strukturálása és formázása</p>
+            <p><strong>4. lépés:</strong> A JSON fájl generálása</p>
+          </div>
+
+          <div class="comparison">
+            <div class="comparison-item">
+              <h4>XML Struktúra</h4>
+              <div class="code-block">
+                <pre>
+&lt;konyvek&gt;
+  &lt;konyv&gt;
+    &lt;cim&gt;...&lt;/cim&gt;
+    &lt;szerzo&gt;...&lt;/szerzo&gt;
+  &lt;/konyv&gt;
+&lt;/konyvek&gt;</pre
+                >
+              </div>
+            </div>
+            <div class="comparison-item">
+              <h4>JSON Struktúra</h4>
+              <div class="code-block">
+                <pre>
+{
+  "konyvek": [
+    {
+      "cim": "...",
+      "szerzo": "..."
+    }
+  ]
+}</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button onclick="konvertalXMLJSON()">Konverzió Végrehajtása</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab4" class="tab-content">
+        <div class="section">
+          <h2>Könyvek Adatai</h2>
+          <div id="booksDisplay"></div>
+          <div class="button-group">
+            <button onclick="megjenleniteKonyvek()">
+              Könyvek Megjelenítése
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<konyvek>
+  <konyv>
+    <id>1</id>
+    <cim>Java 2 I-II. - Útikalauz programozóknak 5.0</cim>
+    <szerzo>Nyékyné Dr. Gaizler Judit</szerzo>
+    <ev>2009</ev>
+    <tema>Informatika - Java Programozás</tema>
+    <kiado>Kiskapu Kft.</kiado>
+    <oldalszam>600</oldalszam>
+    <isbn>978-9789637381</isbn>
+    <leiras>Comprehensive guide to Java programming for beginners and experienced programmers</leiras>
+  </konyv>
+  <konyv>
+    <id>2</id>
+    <cim>C# programozás lépésről lépésre</cim>
+    <szerzo>Reiter István</szerzo>
+    <ev>2018</ev>
+    <tema>Informatika - C# Programozás</tema>
+    <kiado>Microsoft Press Hungary</kiado>
+    <oldalszam>520</oldalszam>
+    <isbn>978-9639986246</isbn>
+    <leiras>Step-by-step guide to C# programming with practical examples</leiras>
+  </konyv>
+</konyvek>`;
+
+      // JSON tartalom
+      const jsonData = {
+        konyvek: [
+          {
+            id: 1,
+            cim: 'Java 2 I-II. - Útikalauz programozóknak 5.0',
+            szerzo: 'Nyékyné Dr. Gaizler Judit',
+            ev: 2009,
+            tema: 'Informatika - Java Programozás',
+            kiado: 'Kiskapu Kft.',
+            oldalszam: 600,
+            isbn: '978-9789637381',
+            leiras:
+              'Comprehensive guide to Java programming for beginners and experienced programmers',
+          },
+          {
+            id: 2,
+            cim: 'C# programozás lépésről lépésre',
+            szerzo: 'Reiter István',
+            ev: 2018,
+            tema: 'Informatika - C# Programozás',
+            kiado: 'Microsoft Press Hungary',
+            oldalszam: 520,
+            isbn: '978-9639986246',
+            leiras:
+              'Step-by-step guide to C# programming with practical examples',
+          },
+        ],
+      };
+
+      window.addEventListener('load', function () {
+        document.getElementById('xmlContent').textContent = xmlContent;
+        document.getElementById('jsonContent').textContent = JSON.stringify(
+          jsonData,
+          null,
+          2
+        );
+      });
+
+      function switchTab(tabName) {
+        const contents = document.querySelectorAll('.tab-content');
+        const buttons = document.querySelectorAll('.tab-button');
+
+        contents.forEach((content) => {
+          content.classList.remove('active');
+        });
+        buttons.forEach((button) => {
+          button.classList.remove('active');
+        });
+
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+      }
+
+      function letoltXML() {
+        const element = document.createElement('a');
+        element.setAttribute(
+          'href',
+          'data:text/xml;charset=utf-8,' + encodeURIComponent(xmlContent)
+        );
+        element.setAttribute('download', 'YNBG2A_konyv.xml');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+
+      function letoltJSON() {
+        const element = document.createElement('a');
+        element.setAttribute(
+          'href',
+          'data:application/json;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(jsonData, null, 2))
+        );
+        element.setAttribute('download', 'YNBG2A_konyv.json');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+
+      function konvertalXMLJSON() {
+        alert(
+          '✓ Konverzió kész!\n\n' +
+            'Az XML dokumentum sikeresen konvertálódott JSON formátumra.\n\n' +
+            'Az eredmény megtekinthető a "JSON Fájl" lapon.'
+        );
+        switchTab('tab2');
+      }
+
+      function megjenleniteKonyvek() {
+        let html = '';
+        jsonData.konyvek.forEach((konyv) => {
+          html += `
+          <div class="book-card">
+            <h3>${konyv.cim}</h3>
+            <div class="book-info">
+              <div class="book-info-item">
+                <div class="book-info-label">Szerző:</div>
+                <div class="book-info-value">${konyv.szerzo}</div>
+              </div>
+              <div class="book-info-item">
+                <div class="book-info-label">Év:</div>
+                <div class="book-info-value">${konyv.ev}</div>
+              </div>
+              <div class="book-info-item">
+                <div class="book-info-label">Témakör:</div>
+                <div class="book-info-value">${konyv.tema}</div>
+              </div>
+              <div class="book-info-item">
+                <div class="book-info-label">Kiadó:</div>
+                <div class="book-info-value">${konyv.kiado}</div>
+              </div>
+              <div class="book-info-item">
+                <div class="book-info-label">Oldalszám:</div>
+                <div class="book-info-value">${konyv.oldalszam}</div>
+              </div>
+              <div class="book-info-item">
+                <div class="book-info-label">ISBN:</div>
+                <div class="book-info-value">${konyv.isbn}</div>
+              </div>
+              <div class="book-info-item" style="grid-column: 1 / -1;">
+                <div class="book-info-label">Leírás:</div>
+                <div class="book-info-value">${konyv.leiras}</div>
+              </div>
+            </div>
+          </div>
+        `;
+        });
+        document.getElementById('booksDisplay').innerHTML = html;
+      }
+
+      function masolasVagothaftarVagot(elementId) {
+        const element = document.getElementById(elementId);
+        const szoveg = element.textContent;
+
+        navigator.clipboard
+          .writeText(szoveg)
+          .then(() => {
+            alert('✓ Sikeresen másolt a vágólapra!');
+          })
+          .catch(() => {
+            const textArea = document.createElement('textarea');
+            textArea.value = szoveg;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('✓ Sikeresen másolt a vágólapra!');
+          });
+      }
+    </script>
+  </body>
+</html>

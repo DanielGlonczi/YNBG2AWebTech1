@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Egymásba Ágyazott Tömbök - For-For Ciklus</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Egymásba Ágyazott Tömbök - For-For Ciklus</h1>
+      <p class="subtitle">Autó Márkák és Modellek Adatbázisa</p>
+
+      <div class="stat-box" id="statsContainer"></div>
+
+      <div class="controls">
+        <button onclick="listaViszonytNezet()">Lista Nézet</button>
+        <button onclick="kartyaNezet()" class="secondary">Kártya Nézet</button>
+        <button onclick="jsonNezet()">{ } JSON Nézet</button>
+        <button onclick="koddNezet()">Kód Nézet</button>
+      </div>
+
+      <!-- Lista Nézet -->
+      <div id="listaView" class="section" style="display: none">
+        <h2>Autó Márkák és Modellek - Lista</h2>
+        <div class="list-container" id="listaContainer"></div>
+      </div>
+
+      <!-- Kártya Nézet -->
+      <div id="kartyaView" class="section" style="display: none">
+        <h2>Autó Márkák és Modellek - Kártyák</h2>
+        <div id="kartyaContainer"></div>
+      </div>
+
+      <!-- JSON Nézet -->
+      <div id="jsonView" class="section" style="display: none">
+        <h2>{ } JSON Adatok</h2>
+        <div class="json-block" id="jsonContainer"></div>
+      </div>
+
+      <!-- Kód Nézet -->
+      <div id="koddView" class="section" style="display: none">
+        <h2>For-For Ciklus Kódja</h2>
+        <div class="code-section">
+          <h4>JavaScript Kód - For-For Ciklus:</h4>
+          <div class="code-block">
+            <pre>
+// Egymásba ágyazott tömbök végigmenete for-for ciklus segítségével
+for (let i = 0; i &lt; xyObj.cars.length; i++) {
+  const carBrand = xyObj.cars[i];
+  console.log("Márkacímsor: " + (i + 1) + ". " + carBrand.name);
+  
+  // Belső ciklus - Modellek végigmenete
+  for (let j = 0; j &lt; carBrand.models.length; j++) {
+    const model = carBrand.models[j];
+    console.log("  └─ " + model);
+  }
+}</pre
+            >
+          </div>
+        </div>
+
+        <div class="code-section">
+          <h4>Tömb Struktúra:</h4>
+          <div class="code-block">
+            <pre>
+const xyObj = {
+  "name" : "XY",
+  "age" : 22,
+  "cars" : [
+    {
+      "name":"Toyota",
+      "models":["CHR", "Corolla", "Proace"]
+    },
+    {
+      "name":"Ford",
+      "models":["Kuga", "Mondeo", "Mustang"]
+    },
+    {
+      "name":"BMW",
+      "models":["320", "X3", "X5"]
+    },
+    {
+      "name":"Fiat",
+      "models":["500", "Panda", "Tipo"]
+    }
+  ]
+}</pre
+            >
+          </div>
+        </div>
+
+        <div class="info-box">
+          <p><strong>💡 Magyarázat:</strong></p>
+          <p>
+            <strong>Külső for ciklus (i):</strong> Végigmegy a márkákon (cars
+            tömb)
+          </p>
+          <p>
+            <strong>Belső for ciklus (j):</strong> Végigmegy az egyes márkák
+            modelljeien (models tömb)
+          </p>
+          <p>
+            <strong>Eredmény:</strong> Teljes lista az összes márkáról és
+            modelljéről
+          </p>
+        </div>
+      </div>
+
+      <!-- Információ -->
+      <div class="info-box">
+        <p>
+          <strong>Információ:</strong> Ez az oldal az egymásba ágyazott tömbök
+          feldolgozását mutatja be for-for ciklus segítségével.
+        </p>
+        <p>
+          <strong>Adatok forrása:</strong> Az XY személyes objektum, amely autó
+          márkákat és modelleket tartalmaz.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // JSON objektum - Egymásba ágyazott tömbökkel
+      const xyObj = {
+        name: 'XY',
+        age: 22,
+        cars: [
+          {
+            name: 'Toyota',
+            models: ['CHR', 'Corolla', 'Proace'],
+          },
+          {
+            name: 'Ford',
+            models: ['Kuga', 'Mondeo', 'Mustang'],
+          },
+          {
+            name: 'BMW',
+            models: ['320', 'X3', 'X5'],
+          },
+          {
+            name: 'Fiat',
+            models: ['500', 'Panda', 'Tipo'],
+          },
+        ],
+      };
+
+      // Oldal betöltésekor
+      window.addEventListener('load', function () {
+        statisztikaMegjelenites();
+        listaViszonytNezet();
+      });
+
+      function statisztikaMegjelenites() {
+        const statsContainer = document.getElementById('statsContainer');
+
+        let totalModels = 0;
+        for (let i = 0; i < xyObj.cars.length; i++) {
+          for (let j = 0; j < xyObj.cars[i].models.length; j++) {
+            totalModels++;
+          }
+        }
+
+        statsContainer.innerHTML = `
+          <div class="stat-card">
+            <div class="stat-number">${xyObj.name}</div>
+            <div class="stat-label">Monogram</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">${xyObj.age}</div>
+            <div class="stat-label">Életkor</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">${xyObj.cars.length}</div>
+            <div class="stat-label">Autó Márkák</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">${totalModels}</div>
+            <div class="stat-label">Összes Modell</div>
+          </div>
+        `;
+      }
+
+      function nezetetJelenites(viewId) {
+        document.getElementById('listaView').style.display = 'none';
+        document.getElementById('kartyaView').style.display = 'none';
+        document.getElementById('jsonView').style.display = 'none';
+        document.getElementById('koddView').style.display = 'none';
+        document.getElementById(viewId).style.display = 'block';
+      }
+
+      function listaViszonytNezet() {
+        nezetetJelenites('listaView');
+        const container = document.getElementById('listaContainer');
+        container.innerHTML = '';
+
+        for (let i = 0; i < xyObj.cars.length; i++) {
+          const carBrand = xyObj.cars[i];
+
+          const section = document.createElement('div');
+          section.className = 'car-section';
+
+          let modelsList = '<div class="models-list">';
+
+          for (let j = 0; j < carBrand.models.length; j++) {
+            const model = carBrand.models[j];
+            modelsList += `<div class="model-item">${model}</div>`;
+          }
+
+          modelsList += '</div>';
+
+          section.innerHTML = `
+            <h3> ${i + 1}. ${carBrand.name}</h3>
+            <p><strong>Modellek (${carBrand.models.length} db):</strong></p>
+            ${modelsList}
+          `;
+
+          container.appendChild(section);
+        }
+      }
+
+      // Kártya Nézet
+      function kartyaNezet() {
+        nezetetJelenites('kartyaView');
+        const container = document.getElementById('kartyaContainer');
+        container.innerHTML = '';
+
+        // FOR-FOR CIKLUS - Kártya nézet
+        for (let i = 0; i < xyObj.cars.length; i++) {
+          const carBrand = xyObj.cars[i];
+
+          const card = document.createElement('div');
+          card.className = 'person-card';
+
+          let modelsHtml = '';
+          for (let j = 0; j < carBrand.models.length; j++) {
+            modelsHtml += `
+              <div class="info-item">
+                <div class="info-item-label">Modell ${j + 1}</div>
+                <div class="info-item-value">${carBrand.models[j]}</div>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <h3>${carBrand.name}</h3>
+            <div class="person-info">
+              <div class="info-item">
+                <div class="info-item-label">Sorszám</div>
+                <div class="info-item-value">${i + 1}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-item-label">Modellek száma</div>
+                <div class="info-item-value">${carBrand.models.length}</div>
+              </div>
+              ${modelsHtml}
+            </div>
+          `;
+
+          container.appendChild(card);
+        }
+      }
+
+      function jsonNezet() {
+        nezetetJelenites('jsonView');
+        const jsonContainer = document.getElementById('jsonContainer');
+        jsonContainer.textContent = JSON.stringify(xyObj, null, 2);
+      }
+
+      function koddNezet() {
+        nezetetJelenites('koddView');
+      }
+    </script>
+  </body>
+</html>

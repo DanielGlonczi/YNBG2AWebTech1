@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Objektumot konvertálja JSON String</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JS Objektumot konvertálja JSON String</h1>
+      <p class="subtitle">Paraméterek: név, irányítószám, város, egyetem</p>
+
+      <!-- 1. JavaScript Objektum Megadása -->
+      <div class="section">
+        <h2>1. JavaScript Objektum Megadása</h2>
+
+        <label for="jsObject">JavaScript Objektum (JSON formátumban):</label>
+        <textarea
+          id="jsObject"
+          rows="6"
+          placeholder='Adjon meg egy JS objektumot, például: {"nev":"József","iranyitoszam":"1011","varos":"Budapest","egyetem":"ELTE"}'
+        ></textarea>
+
+        <div class="minta">
+          <strong>Minta objektumok (a megadott paraméterekkel):</strong><br />
+          •
+          <code
+            >{"nev":"József","iranyitoszam":"1011","varos":"Budapest","egyetem":"ELTE"}</code
+          ><br />
+          •
+          <code
+            >{"nev":"Mari","iranyitoszam":"6726","varos":"Szeged","egyetem":"SZTE"}</code
+          ><br />
+          •
+          <code
+            >{"nev":"Péter","iranyitoszam":"8000","varos":"Székesfehérvár","egyetem":"BME"}</code
+          >
+        </div>
+
+        <div class="button-group">
+          <button onclick="konvertalJSONStringifyre()">
+            ✓ JSON.stringify() - Tömör forma
+          </button>
+          <button onclick="konvertalFormazottan()" class="secondary">
+            ✓ JSON.stringify() - Formázott forma
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Előre definiált Minta Objektumok -->
+      <div class="section">
+        <h2>2. Előre Definiált Minta Objektumok</h2>
+        <p>Válasszon egy minta adatot a gyors teszteléshez:</p>
+
+        <div class="button-group">
+          <button onclick="mintaObjektum1()" class="secondary">
+            Minta 1: József - Budapest - ELTE
+          </button>
+          <button onclick="mintaObjektum2()" class="secondary">
+            Minta 2: Mari - Szeged - SZTE
+          </button>
+          <button onclick="mintaObjektum3()" class="secondary">
+            Minta 3: Péter - Székesfehérvár - BME
+          </button>
+          <button onclick="mintaTomb()" class="secondary">
+            Minta 4: Tömb (3 diák)
+          </button>
+        </div>
+      </div>
+
+      <!-- Eredmény megjelenítés -->
+      <div class="output" id="output" style="display: none">
+        <h3>Konvertálás Eredménye:</h3>
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script>
+      // Minta objektumok (a megadott paraméterekkel)
+      const mintaObjektumok = {
+        1: {
+          nev: 'József',
+          iranyitoszam: '1011',
+          varos: 'Budapest',
+          egyetem: 'ELTE',
+        },
+        2: {
+          nev: 'Mari',
+          iranyitoszam: '6726',
+          varos: 'Szeged',
+          egyetem: 'SZTE',
+        },
+        3: {
+          nev: 'Péter',
+          iranyitoszam: '8000',
+          varos: 'Székesfehérvár',
+          egyetem: 'BME',
+        },
+        tomb: [
+          {
+            nev: 'Anna',
+            iranyitoszam: '2000',
+            varos: 'Szentendre',
+            egyetem: 'PPKE',
+          },
+          {
+            nev: 'Tamás',
+            iranyitoszam: '4026',
+            varos: 'Debrecen',
+            egyetem: 'DE',
+          },
+          {
+            nev: 'Zoltán',
+            iranyitoszam: '6000',
+            varos: 'Kecskemét',
+            egyetem: 'KEFO',
+          },
+        ],
+      };
+
+      // Oldal betöltésekor alapértelmezett minta megjelenítése
+      window.addEventListener('load', function () {
+        document.getElementById('jsObject').value = JSON.stringify(
+          mintaObjektumok[1],
+          null,
+          2
+        );
+      });
+
+      function konvertalJSONStringifyre() {
+        const input = document.getElementById('jsObject').value.trim();
+        const resultDiv = document.getElementById('result');
+        const outputDiv = document.getElementById('output');
+
+        if (!input) {
+          resultDiv.innerHTML =
+            '<div class="error"> Hiba: Kérem adjon meg egy objektumot!</div>';
+          outputDiv.style.display = 'block';
+          return;
+        }
+
+        try {
+          // 1. lépés: Szöveg -> JS objektum
+          const jsObjektum = JSON.parse(input);
+
+          // 2. lépés: JS objektum -> JSON string (tömör)
+          const jsonString = JSON.stringify(jsObjektum);
+
+          let kijelzes =
+            '<div class="success"><strong>✓ Sikeres konvertálás JSON.stringify() segítségével!</strong></div>';
+
+          kijelzes += '<h4> Eredeti JS Objektum:</h4>';
+          kijelzes += '<pre>' + JSON.stringify(jsObjektum, null, 2) + '</pre>';
+
+          kijelzes += '<h4> JSON String (tömör forma):</h4>';
+          kijelzes += '<pre id="jsonOutput">' + jsonString + '</pre>';
+          kijelzes +=
+            '<button class="copy-btn" onclick="masolasVagothaftarVagot(\'' +
+            jsonString.replace(/'/g, "\\'") +
+            '\')"> Másolás a vágólapra</button>';
+
+          kijelzes += '<h4>Statisztika:</h4>';
+          kijelzes += '<div class="info-box">';
+          kijelzes +=
+            '<p><strong>String hossza:</strong> ' +
+            jsonString.length +
+            ' karakter</p>';
+          kijelzes +=
+            '<p><strong>Objektum típusa:</strong> ' +
+            (Array.isArray(jsObjektum) ? 'Tömb' : 'Objektum') +
+            '</p>';
+          if (!Array.isArray(jsObjektum)) {
+            kijelzes +=
+              '<p><strong>Tulajdonságok száma:</strong> ' +
+              Object.keys(jsObjektum).length +
+              '</p>';
+          }
+          kijelzes += '</div>';
+
+          resultDiv.innerHTML = kijelzes;
+          outputDiv.style.display = 'block';
+        } catch (hiba) {
+          resultDiv.innerHTML =
+            '<div class="error"><strong> Hiba a konvertálás során:</strong><br>' +
+            hiba.message +
+            '</div>';
+          outputDiv.style.display = 'block';
+        }
+      }
+
+      function konvertalFormazottan() {
+        const input = document.getElementById('jsObject').value.trim();
+        const resultDiv = document.getElementById('result');
+        const outputDiv = document.getElementById('output');
+
+        if (!input) {
+          resultDiv.innerHTML =
+            '<div class="error">Hiba: Kérem adjon meg egy objektumot!</div>';
+          outputDiv.style.display = 'block';
+          return;
+        }
+
+        try {
+          // 1. lépés: Szöveg -> JS objektum
+          const jsObjektum = JSON.parse(input);
+
+          // 2. lépés: JS objektum -> JSON string (formázva és tömör)
+          const jsonStringFormazott = JSON.stringify(jsObjektum, null, 2);
+          const jsonStringTomor = JSON.stringify(jsObjektum);
+
+          let kijelzes =
+            '<div class="success"><strong>✓ Sikeres konvertálás JSON.stringify() segítségével (formázva)!</strong></div>';
+
+          kijelzes += '<h4> Eredeti JS Objektum:</h4>';
+          kijelzes += '<pre>' + JSON.stringify(jsObjektum, null, 2) + '</pre>';
+
+          kijelzes += '<h4> JSON String (formázott - 2 szóköz behúzás):</h4>';
+          kijelzes += '<pre id="jsonOutput">' + jsonStringFormazott + '</pre>';
+          kijelzes +=
+            '<button class="copy-btn" onclick="masolasVagothaftarVagot(\'' +
+            jsonStringFormazott.replace(/'/g, "\\'").replace(/\n/g, '\\n') +
+            '\')"> Másolás a vágólapra</button>';
+
+          kijelzes += '<h4> Összehasonlítás:</h4>';
+          kijelzes += '<div class="info-box">';
+          kijelzes +=
+            '<p><strong>Tömör forma hossza:</strong> ' +
+            jsonStringTomor.length +
+            ' karakter</p>';
+          kijelzes +=
+            '<p><strong>Formázott forma hossza:</strong> ' +
+            jsonStringFormazott.length +
+            ' karakter</p>';
+          kijelzes += '<p><strong>Behúzás típusa:</strong> 2 szóköz</p>';
+          kijelzes +=
+            '<p><strong>Objektum típusa:</strong> ' +
+            (Array.isArray(jsObjektum) ? 'Tömb' : 'Objektum') +
+            '</p>';
+          kijelzes += '</div>';
+
+          resultDiv.innerHTML = kijelzes;
+          outputDiv.style.display = 'block';
+        } catch (hiba) {
+          resultDiv.innerHTML =
+            '<div class="error"><strong> Hiba a konvertálás során:</strong><br>' +
+            hiba.message +
+            '</div>';
+          outputDiv.style.display = 'block';
+        }
+      }
+
+      function mintaObjektum1() {
+        document.getElementById('jsObject').value = JSON.stringify(
+          mintaObjektumok[1],
+          null,
+          2
+        );
+        konvertalFormazottan();
+      }
+
+      function mintaObjektum2() {
+        document.getElementById('jsObject').value = JSON.stringify(
+          mintaObjektumok[2],
+          null,
+          2
+        );
+        konvertalFormazottan();
+      }
+
+      function mintaObjektum3() {
+        document.getElementById('jsObject').value = JSON.stringify(
+          mintaObjektumok[3],
+          null,
+          2
+        );
+        konvertalFormazottan();
+      }
+
+      function mintaTomb() {
+        document.getElementById('jsObject').value = JSON.stringify(
+          mintaObjektumok.tomb,
+          null,
+          2
+        );
+        konvertalFormazottan();
+      }
+
+      function masolasVagothaftarVagot(szoveg) {
+        navigator.clipboard
+          .writeText(szoveg)
+          .then(() => {
+            alert('✓ Sikeresen másolt a vágólapra!');
+          })
+          .catch(() => {
+            // Fallback módszer régebbi böngészőkhöz
+            const textArea = document.createElement('textarea');
+            textArea.value = szoveg;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('✓ Sikeresen másolt a vágólapra!');
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON megvalósítása – JavaScript</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JSON megvalósítása – JavaScript</h1>
+      <p class="subtitle">Informatika Könyvek Adatbázisa</p>
+
+      <!-- Statisztika -->
+      <div class="stats" id="statsContainer"></div>
+
+      <!-- Nézetek közötti választás -->
+      <div class="controls">
+        <button onclick="tablazatNezet()">Táblázat Nézet</button>
+        <button onclick="kartyaNezet()" class="secondary">Kártya Nézet</button>
+        <button onclick="listaDetailedNezet()">Részletes Lista</button>
+        <button onclick="jsonNezet()">{ } JSON Nézet</button>
+      </div>
+
+      <div id="tablazatView" class="section" style="display: none">
+        <h2>Könyvek - Táblázat Nézet</h2>
+        <div class="table-section">
+          <table id="konyvekTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cím</th>
+                <th>Szerző</th>
+                <th>Év</th>
+                <th>Témakör</th>
+                <th>Oldalszám</th>
+                <th>ISBN</th>
+              </tr>
+            </thead>
+            <tbody id="tablazatBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="kartyaView" class="section" style="display: none">
+        <h2>Könyvek - Kártya Nézet</h2>
+        <div class="books-list" id="kartyaContainer"></div>
+      </div>
+
+      <div id="listView" class="section" style="display: none">
+        <h2>Könyvek - Részletes Lista</h2>
+        <ul class="detailed-list" id="detailedList"></ul>
+      </div>
+
+      <div id="jsonView" class="section" style="display: none">
+        <h2>{ } JSON Adatok</h2>
+        <div class="json-block" id="jsonContainer"></div>
+        <button
+          onclick="jsonLetoltes()"
+          class="secondary"
+          style="width: 100%; margin-top: 15px"
+        >
+          JSON Fájl Letöltése
+        </button>
+      </div>
+
+      <div class="info-box">
+        <p>
+          <strong> Tipp:</strong> Kattintson a megjelenítési módok közül egyre,
+          hogy másik nézetet lásson!
+        </p>
+        <p>
+          <strong> Adatok forrása:</strong> A könyvek adatai egy JSON
+          objektumból kerülnek megjelenítésre JavaScript segítségével.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const konyvekData = {
+        konyvek: [
+          {
+            id: 1,
+            cim: 'Java 2 I-II. - Útikalauz programozóknak 5.0',
+            szerzo: 'Nyékyné Dr. Gaizler Judit',
+            ev: 2009,
+            tema: 'Informatika - Java Programozás',
+            kiado: 'Kiskapu Kft.',
+            oldalszam: 600,
+            isbn: '978-9789637381',
+            leiras:
+              'Comprehensive guide to Java programming for beginners and experienced programmers',
+          },
+          {
+            id: 2,
+            cim: 'C# programozás lépésről lépésre',
+            szerzo: 'Reiter István',
+            ev: 2018,
+            tema: 'Informatika - C# Programozás',
+            kiado: 'Microsoft Press Hungary',
+            oldalszam: 520,
+            isbn: '978-9639986246',
+            leiras:
+              'Step-by-step guide to C# programming with practical examples',
+          },
+        ],
+      };
+
+      window.addEventListener('load', function () {
+        statisztikaMegjelenites();
+        tablazatNezet();
+      });
+
+      function statisztikaMegjelenites() {
+        const statsContainer = document.getElementById('statsContainer');
+        const konyvCount = konyvekData.konyvek.length;
+        const totalOldal = konyvekData.konyvek.reduce(
+          (sum, book) => sum + book.oldalszam,
+          0
+        );
+        const avgOldal = Math.round(totalOldal / konyvCount);
+
+        statsContainer.innerHTML = `
+          <div class="stat-card">
+            <div class="stat-number">${konyvCount}</div>
+            <div class="stat-label">Összes Könyv</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">${totalOldal}</div>
+            <div class="stat-label">Összes Oldal</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">${avgOldal}</div>
+            <div class="stat-label">Átlag Oldalszám</div>
+          </div>
+        `;
+      }
+
+      function nezetetJelenites(viewId) {
+        document.getElementById('tablazatView').style.display = 'none';
+        document.getElementById('kartyaView').style.display = 'none';
+        document.getElementById('listView').style.display = 'none';
+        document.getElementById('jsonView').style.display = 'none';
+        document.getElementById(viewId).style.display = 'block';
+      }
+
+      function tablazatNezet() {
+        nezetetJelenites('tablazatView');
+        const tbody = document.getElementById('tablazatBody');
+        tbody.innerHTML = '';
+
+        konyvekData.konyvek.forEach((konyv) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${konyv.id}</td>
+            <td><strong>${konyv.cim}</strong></td>
+            <td>${konyv.szerzo}</td>
+            <td>${konyv.ev}</td>
+            <td>${konyv.tema}</td>
+            <td>${konyv.oldalszam}</td>
+            <td>${konyv.isbn}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function kartyaNezet() {
+        nezetetJelenites('kartyaView');
+        const container = document.getElementById('kartyaContainer');
+        container.innerHTML = '';
+
+        konyvekData.konyvek.forEach((konyv) => {
+          const card = document.createElement('div');
+          card.className = 'book-card';
+          card.innerHTML = `
+            <h3>${konyv.cim}</h3>
+            <div class="book-info">
+              <div class="book-info-row">
+                <span class="book-info-label">Szerző:</span>
+                <span class="book-info-value">${konyv.szerzo}</span>
+              </div>
+              <div class="book-info-row">
+                <span class="book-info-label">Év:</span>
+                <span class="book-info-value">${konyv.ev}</span>
+              </div>
+              <div class="book-info-row">
+                <span class="book-info-label">Témakör:</span>
+                <span class="book-info-value">${konyv.tema}</span>
+              </div>
+              <div class="book-info-row">
+                <span class="book-info-label">Kiadó:</span>
+                <span class="book-info-value">${konyv.kiado}</span>
+              </div>
+              <div class="book-info-row">
+                <span class="book-info-label">Oldalszám:</span>
+                <span class="book-info-value">${konyv.oldalszam}</span>
+              </div>
+              <div class="book-info-row">
+                <span class="book-info-label">ISBN:</span>
+                <span class="book-info-value">${konyv.isbn}</span>
+              </div>
+              <span class="book-badge">ID: ${konyv.id}</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function listaDetailedNezet() {
+        nezetetJelenites('listView');
+        const list = document.getElementById('detailedList');
+        list.innerHTML = '';
+
+        konyvekData.konyvek.forEach((konyv, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <h3>${index + 1}. ${konyv.cim}</h3>
+            <p><strong>Szerző:</strong> ${konyv.szerzo}</p>
+            <p><strong>Megjelenés:</strong> ${konyv.ev}</p>
+            <p><strong>Témakör:</strong> ${konyv.tema}</p>
+            <p><strong>Kiadó:</strong> ${konyv.kiado}</p>
+            <p><strong>Terjedelme:</strong> ${konyv.oldalszam} oldal</p>
+            <p><strong>ISBN:</strong> ${konyv.isbn}</p>
+            <p><strong>Leírás:</strong> ${konyv.leiras}</p>
+          `;
+          list.appendChild(li);
+        });
+      }
+
+      function jsonNezet() {
+        nezetetJelenites('jsonView');
+        const jsonContainer = document.getElementById('jsonContainer');
+        jsonContainer.textContent = JSON.stringify(konyvekData, null, 2);
+      }
+
+      function jsonLetoltes() {
+        const element = document.createElement('a');
+        element.setAttribute(
+          'href',
+          'data:application/json;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(konyvekData, null, 2))
+        );
+        element.setAttribute('download', 'YNBG2A_konyv.json');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+    </script>
+  </body>
+</html>

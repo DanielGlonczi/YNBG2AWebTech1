@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON String konvertálása JavaScript objektummá</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JSON String konvertálása JS objektummá</h1>
+
+      <div class="section">
+        <label for="jsonString">JSON String bemenet:</label>
+        <textarea
+          id="jsonString"
+          rows="6"
+          placeholder='Adjon meg egy JSON stringet, például: {"nev":"János","eletkor":30,"város":"Budapest"}'
+        ></textarea>
+
+        <button onclick="konvertal()">
+          Konvertálás JSON.parse() segítségével
+        </button>
+      </div>
+
+      <div class="output" id="output" style="display: none">
+        <h3>Eredmény:</h3>
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script>
+      const mintaJsonok = [
+        '{"nev":"János","eletkor":30,"város":"Budapest"}',
+        '{"termek":"Laptop","ar":250000,"elerheto":true}',
+        '[{"id":1,"nev":"Anna"},{"id":2,"nev":"Péter"}]',
+      ];
+
+      window.addEventListener('load', function () {
+        document.getElementById('jsonString').value = mintaJsonok[0];
+      });
+
+      function konvertal() {
+        const jsonString = document.getElementById('jsonString').value.trim();
+        const resultDiv = document.getElementById('result');
+        const outputDiv = document.getElementById('output');
+
+        if (!jsonString) {
+          resultDiv.innerHTML =
+            '<div class="error">Hiba: Kérem adjon meg egy JSON stringet!</div>';
+          outputDiv.style.display = 'block';
+          return;
+        }
+
+        try {
+          const jsObjektum = JSON.parse(jsonString);
+
+          let kijelzes =
+            '<div class="success"><strong>Sikeres konvertálás!</strong></div>';
+          kijelzes += '<h4>JS Objektum:</h4>';
+          kijelzes += '<pre>' + JSON.stringify(jsObjektum, null, 2) + '</pre>';
+
+          kijelzes += '<h4>Objektum típusa:</h4>';
+          kijelzes +=
+            '<p><strong>' +
+            (Array.isArray(jsObjektum) ? 'Tömb' : 'Objektum') +
+            '</strong></p>';
+
+          kijelzes += '<h4>Objektum tartalma:</h4>';
+          kijelzes += '<pre>' + JSON.stringify(jsObjektum, null, 2) + '</pre>';
+
+          kijelzes += '<h4>Tulajdonságok elérése JavaScript-ben:</h4>';
+          kijelzes += '<pre>';
+          if (Array.isArray(jsObjektum)) {
+            kijelzes += 'Tömb hossza: ' + jsObjektum.length + '\n';
+            kijelzes += 'Első elem: ' + JSON.stringify(jsObjektum[0]);
+          } else {
+            const kulcsok = Object.keys(jsObjektum);
+            kulcsok.forEach((kulcs) => {
+              kijelzes +=
+                'jsObjektum.' +
+                kulcs +
+                ' = ' +
+                JSON.stringify(jsObjektum[kulcs]) +
+                '\n';
+            });
+          }
+          kijelzes += '</pre>';
+
+          resultDiv.innerHTML = kijelzes;
+          outputDiv.style.display = 'block';
+        } catch (hiba) {
+          let hibauzenet = '<div class="error">';
+          hibauzenet += '<strong>Hiba a konvertálás során:</strong><br>';
+          hibauzenet += hiba.message + '<br><br>';
+          hibauzenet += '<strong>Helyes JSON formátum példái:</strong><br>';
+          hibauzenet += '• {"nev":"János","eletkor":30}<br>';
+          hibauzenet += '• [1, 2, 3, 4, 5]<br>';
+          hibauzenet += '• {"osztalyzatok":[4,5,3,5]}';
+          hibauzenet += '</div>';
+
+          resultDiv.innerHTML = hibauzenet;
+          outputDiv.style.display = 'block';
+        }
+      }
+
+      document
+        .getElementById('jsonString')
+        .addEventListener('keypress', function (event) {
+          if (event.key === 'Enter' && event.ctrlKey) {
+            konvertal();
+          }
+        });
+    </script>
+  </body>
+</html>
