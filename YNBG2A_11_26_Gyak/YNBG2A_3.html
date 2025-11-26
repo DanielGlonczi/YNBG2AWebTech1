@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery feladatok</title>
+  </head>
+  <body>
+    <h1>jQuery feladatok</h1>
+
+    <div class="description">
+      A jQuery egy JavaScript programozói könyvtár, amelyet John Resig kezdett
+      fejleszteni. <span class="link-text">Kattints ide</span>, és eltunik!
+    </div>
+
+    <p id="paragraph1">
+      Elterjedtnek tekinthető, segítségével könnyen bejárható egy HTML oldal
+      DOM-ja.
+      <span class="link-text" id="click-para1">Kattints ide duplán</span>, és
+      eltunik!
+    </p>
+
+    <p id="paragraph2">
+      Ez a második bekezdés. Dupla kattintásra fog eltűnni.
+      <span class="link-text" id="click-para2">Kattints ide duplán</span>, és
+      eltunik!
+    </p>
+
+    <div class="form-container">
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="name">Név:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Adja meg a nevét"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Adja meg az e-mail címét"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Jelszó:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Adja meg a jelszavát"
+          />
+        </div>
+
+        <button type="button" id="submitBtn">Jelentkezés</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="3.js"></script>
+  </body>
+</html>
