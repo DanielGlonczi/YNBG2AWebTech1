@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Animáció</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      .gomb-container {
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #fff;
+        border: 1px solid #999;
+        padding: 10px 20px;
+        margin-right: 10px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .bekezdesek {
+        margin: 20px 0;
+        line-height: 1.6;
+      }
+
+      .bekezdesek p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+
+      .animacio-doboz {
+        position: absolute;
+        left: 300px;
+        top: 400px;
+        width: 300px;
+        height: 100px;
+        background-color: #4472c4;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12pt;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>jQuery Animáció</h1>
+
+    <div class="gomb-container">
+      <button id="animacioGomb">Animáció indítása</button>
+      <button id="elrejtesGomb">Bekezdés elrejtése</button>
+      <button id="osszecsukasGomb">Összecsuk / Kinyit</button>
+    </div>
+
+    <div class="bekezdesek">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo.
+      </p>
+    </div>
+
+    <div class="animacio-doboz">ME GÉIK – PTI</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="YNBG2A_3.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+A fájlok egy webszerverről kell, hogy fussanak - egy egyszerű webszerver szükséges. El kell indítani egy egyszerű HTTP szervert a könyvtárban és ezt követően megnyitni az állományokat Pl.: http://localhost:8000/YNBG2A_1.html

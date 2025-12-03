@@ -1,0 +1,115 @@
+{
+  "kurzus": [
+    {
+      "targy": "Web technológiák 1",
+      "idopont": {
+        "nap": "Hétfő",
+        "tol": "10:00",
+        "ig": "11:30"
+      },
+      "helyszin": "Inf/101",
+      "oktato": "Dr. Bednarik László",
+      "szak": "MI, PTI",
+      "tipus": "Előadás"
+    },
+    {
+      "targy": "Programozás alapjai",
+      "idopont": {
+        "nap": "Hétfő",
+        "tol": "12:00",
+        "ig": "13:30"
+      },
+      "helyszin": "Inf/201",
+      "oktato": "Dr. Nagy János",
+      "szak": "MI, PTI",
+      "tipus": "Gyk."
+    },
+    {
+      "targy": "Adatbázisok",
+      "idopont": {
+        "nap": "Kedd",
+        "tol": "10:00",
+        "ig": "11:30"
+      },
+      "helyszin": "Inf/102",
+      "oktato": "Dr. Kovács Mihály",
+      "szak": "MI, PTI",
+      "tipus": "Előadás"
+    },
+    {
+      "targy": "Web technológiák 1",
+      "idopont": {
+        "nap": "Szerda",
+        "tol": "12:00",
+        "ig": "13:30"
+      },
+      "helyszin": "Inf/101",
+      "oktato": "Dr. Bednarik László",
+      "szak": "MI, PTI",
+      "tipus": "Gyk."
+    },
+    {
+      "targy": "Szoftverfejlesztés",
+      "idopont": {
+        "nap": "Csütörtök",
+        "tol": "10:00",
+        "ig": "11:30"
+      },
+      "helyszin": "Inf/303",
+      "oktato": "Dr. Tóth Péter",
+      "szak": "MI, PTI",
+      "tipus": "Előadás"
+    },
+    {
+      "targy": "Adatbázisok",
+      "idopont": {
+        "nap": "Csütörtök",
+        "tol": "14:00",
+        "ig": "15:30"
+      },
+      "helyszin": "Inf/102",
+      "oktato": "Dr. Kovács Mihály",
+      "szak": "MI, PTI",
+      "tipus": "Gyk."
+    },
+    {
+      "targy": "Szoftverfejlesztés",
+      "idopont": {
+        "nap": "Péntek",
+        "tol": "10:00",
+        "ig": "11:30"
+      },
+      "helyszin": "Inf/303",
+      "oktato": "Dr. Tóth Péter",
+      "szak": "MI, PTI",
+      "tipus": "Gyk."
+    },
+    {
+      "targy": "Programozás alapjai",
+      "idopont": {
+        "nap": "Péntek",
+        "tol": "12:00",
+        "ig": "13:30"
+      },
+      "helyszin": "Inf/201",
+      "oktato": "Dr. Nagy János",
+      "szak": "MI, PTI",
+      "tipus": "Gyk."
+    }
+  ],
+  "cim": {
+    "iranyitoszam": 3515,
+    "varos": "Miskolc",
+    "utca": "Egyetemváros"
+  },
+  "telefonszam": [
+    {
+      "tipus": "Vezetékes",
+      "szam": "0646 555-125"
+    },
+    {
+      "tipus": "Mobil",
+      "szam": "0670 555-4567"
+    }
+  ]
+}

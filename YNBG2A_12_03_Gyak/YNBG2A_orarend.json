@@ -1,0 +1,55 @@
+{
+  "kurzus": [
+    {
+      "targy": "Web technológiák 1",
+      "idopont": {
+        "nap": "Szerda",
+        "tol": "12:00",
+        "ig": "13:30"
+      },
+      "helyszin": "Inf/101",
+      "oktato": "Dr. Bednarik László",
+      "szak": "ME GÉIK",
+      "tipus": "Gyk."
+    },
+    {
+      "targy": "Programozás alapjai",
+      "idopont": {
+        "nap": "Hétfő",
+        "tol": "10:00",
+        "ig": "11:30"
+      },
+      "helyszin": "Inf/201",
+      "oktato": "Dr. Nagy János",
+      "szak": "ME GÉIK",
+      "tipus": "Előadás"
+    },
+    {
+      "targy": "Adatbázisok",
+      "idopont": {
+        "nap": "Péntek",
+        "tol": "14:00",
+        "ig": "15:30"
+      },
+      "helyszin": "Inf/102",
+      "oktato": "Dr. Kovács Mihály",
+      "szak": "ME GÉIK",
+      "tipus": "Gyk."
+    }
+  ],
+  "cim": {
+    "iranyitoszam": 3515,
+    "varos": "Miskolc",
+    "utca": "Egyetemváros"
+  },
+  "telefonszam": [
+    {
+      "tipus": "Vezetékes",
+      "szam": "0646 555-125"
+    },
+    {
+      "tipus": "Mobil",
+      "szam": "0670 555-4567"
+    }
+  ]
+}
